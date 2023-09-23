@@ -221,13 +221,11 @@ class _MyHomePageState extends State<MyHomePage> {
       builder: (context) => AlertDialog.adaptive(
         title: const Text('CRDT Draw'),
         content: const Text(
-            '''This is a global canvas where anyone can draw whatever they want, within the confines of a 100 pixel square and a very limited color palette.
+            '''This is a global canvas where anyone can draw.
+            
+It serves as a demo of Conflict-free Replicated Data Types (CRDTs). Tap "more" to go deeper into the nerd tech stuff.
 
-It serves as a demonstration of the (seemingly contradictory) local-first and real-time capabilities of Conflict-free Replicated Data Types (CRDTs).
-
-Because anyone in the world can draw anonymously you may see something that you consider disagreeable. If that happens, simply tap the trash icon on the top-right to clear the entire canvas.
-
-For the source code and more on the tech behind this demo, tap the button below.
+If you see something that you consider disagreeable just tap the trash icon to clear the board.
 
 Enjoy!'''),
         actions: [
