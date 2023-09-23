@@ -1,0 +1,26 @@
+name: crdt_draw
+description: A collaborative real-time local-first global canvas (client)
+version: 1.0.0
+repository: https://github.com/cachapa/crdt_draw
+
+environment:
+  sdk: ^3.1.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  crdt: ^5.1.2
+#    path: ../crdt
+  crdt_sync: ^1.0.4
+#    path: ../crdt_sync
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: any
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
