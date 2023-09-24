@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:crdt/map_crdt.dart';
 import 'package:crdt_sync/crdt_sync.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import 'canvas.dart';
 
@@ -215,13 +216,12 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void _showInfo() {
-    showDialog(
+  Future<void> _showInfo() async {
+    final result = await showDialog(
       context: context,
       builder: (context) => AlertDialog.adaptive(
         title: const Text('CRDT Draw'),
-        content: const Text(
-            '''This is a global canvas where anyone can draw.
+        content: const Text('''This is a global canvas where anyone can draw.
             
 It serves as a demo of Conflict-free Replicated Data Types (CRDTs). Tap "more" to go deeper into the nerd tech stuff.
 
@@ -240,6 +240,8 @@ Enjoy!'''),
         ],
       ),
     );
+
+    if (result) launchUrlString('https://github.com/cachapa/crdt_draw');
   }
 
   // Mark all available pixels as deleted

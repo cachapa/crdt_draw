@@ -13,6 +13,7 @@ dependencies:
 #    path: ../crdt
   crdt_sync: ^1.0.4
 #    path: ../crdt_sync
+  url_launcher: ^6.1.14
 
 dev_dependencies:
   flutter_test:
