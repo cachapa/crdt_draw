@@ -1,4 +1,6 @@
-# crdt_draw
+
+
+# <img src="icon.png" width="24"> CRDT Draw
 
 A collaborative real-time local-first global canvas.
 
