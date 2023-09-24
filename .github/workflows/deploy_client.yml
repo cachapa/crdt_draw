@@ -1,0 +1,42 @@
+name: Deploy client
+
+on:
+  push:
+    branches:
+      - 'master'
+
+concurrency:
+  group: "deploy-client"
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+    working-directory: client
+
+jobs:
+  build:
+    timeout-minutes: 25
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Load deploy key
+        run: |
+          mkdir ~/.ssh
+          echo "${{ secrets.CONFIG }}" > ~/.ssh/config
+          echo "${{ secrets.KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+          echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          
+      - uses: subosito/flutter-action@v2
+
+      - name: Build app
+        run: flutter build web
+
+      - name: Deploy
+        run: scp -r build/web/* server:~/www/draw
+

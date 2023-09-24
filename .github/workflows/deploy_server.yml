@@ -1,0 +1,42 @@
+name: Deploy server
+
+on:
+  push:
+    branches:
+      - 'master'
+
+concurrency:
+  group: "deploy-server"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Load deploy key
+        run: |
+          mkdir ~/.ssh
+          echo "${{ secrets.CONFIG }}" > ~/.ssh/config
+          echo "${{ secrets.KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+          echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+      - name: Clean slate
+        run: ssh server 'rm -fr crdt_draw'
+      - name: git checkout
+        run: ssh server 'git clone git@github.com:cachapa/crdt_draw.git'
+      - name: pub get
+        run: ssh server '/opt/dart-sdk/bin/dart pub get -C crdt_draw/server'
+      - name: dart compile
+        run: ssh server '/opt/dart-sdk/bin/dart compile exe crdt_draw/server/bin/server.dart -o draw-server.new'
+      - name: Stop service
+        run: ssh server 'systemctl --user stop draw'
+      - name: Replace binary
+        run: ssh server 'mv draw-server.new draw-server'
+      - name: Start service
+        run: ssh server 'systemctl --user start draw'
+      - name: Cleanup
+        run: ssh server 'rm -fr crdt_draw'
+
