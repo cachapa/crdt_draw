@@ -5,6 +5,7 @@ import 'package:crdt_sync/crdt_sync_server.dart';
 
 final colorRegex = RegExp(r'^#(?:[0-9a-fA-F]{3}){1,2}$');
 final crdt = MapCrdt(['pixels', 'meta']);
+final clientIds = <String>{};
 
 main(List<String> args) async {
   final port = args.isEmpty ? 8080 : int.parse(args.first);
@@ -34,14 +35,14 @@ main(List<String> args) async {
 }
 
 void onConnect(CrdtSync crdtSync, Object? customData) {
-  final count = crdt.get('meta', 'user_count') ?? 0;
-  crdt.put('meta', 'user_count', count + 1);
+  clientIds.add(crdtSync.peerId!);
+  crdt.put('meta', 'user_count', clientIds.length);
   print('Client joined: ${crdtSync.peerId}');
 }
 
 void onDisconnect(String peerId, int? code, String? reason) {
-  final count = crdt.get('meta', 'user_count');
-  crdt.put('meta', 'user_count', count - 1);
+  clientIds.remove(peerId);
+  crdt.put('meta', 'user_count', clientIds.length);
   print('Client left: $peerId');
 }
 
