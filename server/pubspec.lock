@@ -77,10 +77,10 @@ packages:
     dependency: "direct main"
     description:
       name: crdt_sync
-      sha256: a76423c326a6a80b2e8a4ebdeb0a424951bd05da72d723dd4e089bf20a9f99db
+      sha256: "26616a3f46533f8759acd4d0806f62e7cc1cb320bf8a1844a726e9a9ac226e62"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.5"
+    version: "1.0.6"
   crypto:
     dependency: transitive
     description:
