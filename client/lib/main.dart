@@ -223,7 +223,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: const Text('CRDT Draw'),
         content: const Text('''This is a global canvas where anyone can draw.
             
-It serves as a demo of Conflict-free Replicated Data Types (CRDTs). Tap "more" to go deeper into the nerd tech stuff.
+It serves as a demo of Conflict-free Replicated Data Types (CRDTs). Tap the "Project" button below to go deeper into the nerd tech stuff.
 
 If you see something that you consider disagreeable just tap the trash icon to clear the board.
 
@@ -231,7 +231,7 @@ Enjoy!'''),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(true),
-            child: Text('More…'.toUpperCase()),
+            child: Text('Project'.toUpperCase()),
           ),
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
