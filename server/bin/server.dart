@@ -10,21 +10,27 @@ main(List<String> args) async {
   final port = args.isEmpty ? 8080 : int.parse(args.first);
 
   print('Running server on port $port…');
-  await listen(
-    crdt,
-    port,
-    onConnecting: (request) =>
-        print('Incoming client: ${request.remoteAddress}'),
-    onConnect: onConnect,
-    onDisconnect: onDisconnect,
-    onUpgradeError: (error, request) =>
-        print('[${request.remoteAddress}] ${request.requestedUri}: $error'),
-    validateRecord: validateRecord,
-    // onChangesetReceived: (recordCounts, nodeId) =>
-    //     print('⇩ $nodeId $recordCounts'),
-    // onChangesetSent: (recordCounts, nodeId) => print('⇧ $nodeId $recordCounts'),
-    // verbose: true,
-  );
+  while (true) {
+    try {
+      await listen(
+        crdt,
+        port,
+        onConnecting: (request) =>
+            print('Incoming client: ${request.remoteAddress}'),
+        onConnect: onConnect,
+        onDisconnect: onDisconnect,
+        onUpgradeError: (error, request) =>
+            print('[${request.remoteAddress}] ${request.requestedUri}: $error'),
+        validateRecord: validateRecord,
+        // onChangesetReceived: (recordCounts, nodeId) =>
+        //     print('⇩ $nodeId $recordCounts'),
+        // onChangesetSent: (recordCounts, nodeId) => print('⇧ $nodeId $recordCounts'),
+        // verbose: true,
+      );
+    } catch (e, st) {
+      print('$e\n$st');
+    }
+  }
 }
 
 void onConnect(CrdtSync crdtSync, Object? customData) {
