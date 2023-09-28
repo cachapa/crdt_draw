@@ -11,7 +11,7 @@ dependencies:
     sdk: flutter
   crdt: ^5.1.2
 #    path: ../crdt
-  crdt_sync: ^1.0.6
+  crdt_sync: ^1.0.7
 #    path: ../crdt_sync
   url_launcher: ^6.1.14
 
